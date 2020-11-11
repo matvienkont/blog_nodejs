@@ -1,0 +1,25 @@
+<div class="text-center add-another-note" >
+    <a href="/posts/add" class="btn btn-dark btn-sm mb-0 d-block mb-2">Add Post</a>
+</div>
+
+{{#each posts}}
+    <div class="card card-body mx-auto my-5 notes-width">
+        <h4 class="text-center ">{{{title}}}</h4>
+        <div class="card card-body mb-3 p-3">
+            <p class="paragraph-indent p-0 m-0">{{{content}}}</p>
+        </div> 
+        <a href="/posts/edit/{{_id}}" class="btn btn-dark btn-block background-opacity">Edit</a>
+        <form action="/posts/{{_id}}?_method=DELETE" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
+            <button class="btn btn-submit btn-danger btn-block mt-2">
+                Delete
+            </button>    
+        </form>
+    </div>
+    
+{{else}}
+    <div class="mx-auto text-center" >
+        <h3 class="text-center mt-5">No posts yet, mate</h3>
+        <a href="/posts/add" class="btn btn-dark btn-lg mb-0 mt-4">Add Post</a>
+    </div>
+{{/each}}

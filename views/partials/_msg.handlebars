@@ -1,0 +1,14 @@
+{{#if success}}
+    <div id="success" class="alert alert-success text-center" 
+            onclick="success.classList.add('hide_success'); setTimeout('success.style.display=\'none\'', 2000);">{{success_msg}}</div>
+{{/if}}
+
+{{#if error_msg}}
+    <div id="failure" class="alert alert-danger text-center" 
+            onclick="failure.classList.add('hide_failure'); setTimeout('failure.style.display=\'none\'', 2000);">{{error_msg}}</div>
+{{/if}}
+
+{{#if error}}
+    <div class="cont alert alert-danger text-center" 
+            onclick="cont.classList.add('hidden'); setTimeout('cont.style.display=\'none\'', 2000);">{{error}}</div>
+{{/if}}

@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand rm-outline" href="/"><h1 id="logo">Bl<span id="logo-i-letter">o</span>g</h1></a> 
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link rm-outline" href="/">Home</a>
+      <a class="nav-item nav-link rm-outline" href="/about">About</a>
+      
+    </div>    
+    {{#if user}}
+      <ul class="navbar-nav ml-auto dropdown-left">
+        <a href="/profile" id="profile" class="nav-item nav-link rm-outline">{{user.name}}</a>
+        <a class="nav-item nav-link rm-outline navbar-links" href="/posts">Posts</a>
+        <a class="nav-item nav-link rm-outline navbar-links" href="/users/logout">Logout</a> 
+      </ul>
+    {{else}}
+      <ul class="navbar-nav ml-auto dropdown-left">
+          <a class="nav-item nav-link rm-outline" href="/users/login">Login</a> 
+          <a class="nav-item nav-link rm-outline" href="/users/register">Register</a>
+      </ul>
+    {{/if}}
+  </div>
+</nav>
+
+<script></script>
