@@ -14,7 +14,7 @@ This application covered almost all of the points mentioned in the task:
 - [x] Statistics: amount of posts per day
 # +
 - [x] Access Token authorization and Refresh Token endpoint to refresh Access Token
-- [ ] Search by title name or content
+- [x] Search by title name or content
 - [x] HTML support inside 
 - [x] Sending email as a confirmation
   - [x] Sending email confirmation on email change
