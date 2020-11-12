@@ -36,4 +36,6 @@ router.delete('/:id', requireAuth, postController.delete_post)
 //View post
 router.get("/view/:id?", requireAuth, checkUser, postController.get_overview_post)
 
+router.get("/search/:page?", requireAuth, checkUser, postController.search_post)
+
 module.exports = router

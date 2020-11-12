@@ -6,6 +6,15 @@
     <a href="/profile/statistics" id="post_amount" class="btn btn-dark btn-sm mb-0 d-block mb-2">Statistics</a>
 </div>
 
+<form action="/posts/search" method="GET">
+            <div class="search_box">
+                    <input type="text" class="form-control" name="key" placeholder="Search" value="">
+                    <button class="btn btn-submit btn-dark submit-buttons">
+                        Search
+                    </button>
+            </div>
+</form>
+
 {{#each posts}}
     <div class="card card-body mx-auto my-5 notes-width">
         <a class="post-title" href="/posts/view/{{_id}}">
@@ -35,7 +44,7 @@
 {{/each}}
 
 <div class="links-container">
-    {{#links_counter page_amount}}
+    {{#links_counter page_amount loc key}}
             {{{this}}}
     {{/links_counter}}
 </div>

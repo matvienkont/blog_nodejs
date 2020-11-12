@@ -18,9 +18,6 @@ const requireAuth = (req, res, next) =>
                 next()
             }
         })
-    } else {
-        const loc = req.originalUrl
-        res.redirect(`/users/verify?loc=${loc}`)
     }
 }
 
@@ -50,8 +47,8 @@ const checkUser = (req, res, next) =>
             }
         })
     } else {
-        res.locals.user=null
-        next()
+            const loc = req.originalUrl
+            res.redirect(`/users/verify?loc=${loc}`)
     }
 }
 

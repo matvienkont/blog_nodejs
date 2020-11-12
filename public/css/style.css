@@ -327,3 +327,11 @@ div > .text-color {
     text-decoration: none;
     color: black;
 }
+
+.search_box {
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 10px;
+}

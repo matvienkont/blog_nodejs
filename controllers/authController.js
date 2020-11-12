@@ -97,7 +97,7 @@ module.exports.signup_post = async  (req, res, next) =>
                             httpOnly: true, maxAge: USER_ID_LIFETIME
                         })
                         res.cookie("refresh_token", refresh_token, { 
-                            httpOnly: true, maxAge: REFRESH_TOKEN_LIFETIME
+                            httpOnly: true, maxAge: REFRESH_TOKEN_LIFETIME, path: "/users/verify"
                         })
                         next()
                     });
@@ -119,7 +119,7 @@ module.exports.login_post = async (req, res, next) =>
 
         res.cookie("jwt", access_token, { httpOnly: true, maxAge: JWT_LIFETIME})
         res.cookie("user_id", user._id, { httpOnly: true, maxAge: USER_ID_LIFETIME})
-        res.cookie("refresh_token", refresh_token, { httpOnly: true, maxAge: REFRESH_TOKEN_LIFETIME})
+        res.cookie("refresh_token", refresh_token, { httpOnly: true, maxAge: REFRESH_TOKEN_LIFETIME, path: "/users/verify"})
         res.redirect("/posts")
     }
     catch (err)
@@ -142,7 +142,7 @@ module.exports.refresh_token_get = async (req, res, next) => {
 
     try {
         await Users.findOne({ _id: user_id })
-                .then((user) => 
+                .then((user) =>
                 {
                     if (user.refreshToken.token == refresh_token_out_of_cookies && Date.now() <= user.refreshToken.expiringTime)
                     {
@@ -164,7 +164,7 @@ module.exports.refresh_token_get = async (req, res, next) => {
                 })
     } catch (err)
     {
-        res.send("Database error")
+        res.redirect("/users/login")
     }
     return 0;
 }

@@ -19,12 +19,15 @@ mongoose.Promise = global.Promise
 app.set('view engine', 'handlebars');
 app.engine('handlebars', exphbs())
 
-Handlebars.registerHelper('links_counter', function(n, block) {
+Handlebars.registerHelper('links_counter', function(n, loc, key, block) {
 		var accum = '';
-		for(var i = 0; i <= n; ++i)
-		{
-			accum += block.fn(`<a class="page-links card" href="/posts?page=${i}">${i+1}</a>`);
-		}
+		if(key)
+			for(var i = 0; i <= n; ++i)
+				accum += block.fn(`<a class="page-links card" href="${loc}?key=${key}&page=${i}">${i+1}</a>`);
+		else
+			for(var i = 0; i <= n; ++i)
+				accum += block.fn(`<a class="page-links card" href="${loc}?page=${i}">${i+1}</a>`);
+
 		return accum;
 	
 });

@@ -46,7 +46,10 @@ module.exports.get_all_posts = (req, res) =>
         .exec(function(err, posts) {
             const posts_length = posts.length-1
             const page_amount = Math.floor(posts_length/10)
+            
             res.locals.page_amount = page_amount
+            res.locals.loc = "/posts"
+
             posts = posts.slice(current_page*10, current_page*10+10)
                 return res.render("posts/viewPosts", {
                     posts: posts
@@ -134,4 +137,38 @@ module.exports.get_overview_post = (req, res) => {
     PostModel.findOne({ _id: req.params.id })
     .lean()
     .then(post => res.render("posts/post_overview", { post: post }))
+}
+
+
+module.exports.search_post = (req, res) => {
+    try {
+    var current_page = 0
+    if (req.query.page)
+        current_page = req.query.page
+    
+    PostModel
+        .find({user: res.locals.user._id})
+        .lean()
+        .sort({'date': -1})
+        .exec(function(err, posts) {
+            const key = sanitize(req.query.key)
+
+            posts = posts.filter(post => post.title.includes(key) || post.content.includes(key))
+
+            const posts_length = posts.length-1
+            const page_amount = Math.floor(posts_length/10)
+
+            res.locals.page_amount = page_amount
+            res.locals.loc = "/posts/search/"
+            res.locals.key = key
+
+            posts = posts.slice(current_page*10, current_page*10+10)
+                return res.render("posts/viewPosts", {
+                    posts: posts
+            })
+        });
+    } catch (err)
+    {
+        res.send("Database error")
+    }
 }
