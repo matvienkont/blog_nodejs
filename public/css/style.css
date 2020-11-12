@@ -317,3 +317,13 @@ div > .text-color {
     margin: 30px;
     margin-bottom: 50px;
 }
+
+.post-title {
+    text-decoration: none;
+    color: black;
+}
+
+.post-title:hover {
+    text-decoration: none;
+    color: black;
+}

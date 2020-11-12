@@ -23,8 +23,6 @@ module.exports.profile_email_change = (req, res, next) => {
         const user_id = res.locals.user._id
         const new_user_email = sanitize(req.body.email)
 
-
-
         Users.findOne({ _id: user_id })
             .then(async (user) => 
             {
