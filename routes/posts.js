@@ -10,16 +10,24 @@ const router = express.Router()
 require("../models/postSchema")
 const PostModel = mongoose.model("posts")
 
-router.get('/', requireAuth, checkUser, (req, res) =>
+router.get(':page?', requireAuth, checkUser, (req, res) =>
 {
-    PostModel.find({ user: res.locals.user._id}).lean()
-    .then(posts => {
-        posts = posts.sort((a,b) => b.date - a.date)
-
-        return res.render("posts/viewPosts", {
-            posts: posts
-        })
-    })  
+    var current_page = 0
+    if (req.query.page)
+        current_page = req.query.page
+    
+    PostModel
+        .find({user: res.locals.user._id})
+        .lean()
+        .sort({'date': -1})
+        .exec(function(err, posts) {
+            const page_amount = Math.floor(posts.length/10)
+            res.locals.page_amount = page_amount
+            posts = posts.slice(current_page*10, current_page*10+10)
+                return res.render("posts/viewPosts", {
+                    posts: posts
+                })
+        });
 })
 
 // Add note
@@ -33,8 +41,7 @@ router.post("/", requireAuth, checkUser, postController.add_post)
 router.use(function(err, req, res, next)
 {
     res.status(500);
-    res.send("Oops, something went wrong.")
-    setTimeout(()=> res.redirect("/posts"), 2000)
+    res.send(err.message)
 })
 
 router.post("/", (req, res, next) => {

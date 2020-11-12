@@ -1,0 +1,27 @@
+<div class="card card-body mx-auto my-5 notes-width">
+        <form action="/profile/name?_method=PUT" method="POST">
+        <input type="hidden" name="_method" value="PUT">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <div class="div-edit-profile">
+                    <input type="text" class="form-control" name="name" value="{{user.name}}" required>
+                    <button class="btn btn-submit btn-dark submit-buttons">
+                        Change name
+                    </button>
+                </div>
+            </div>
+        </form>
+        
+        <form action="/profile/email?_method=PUT" method="POST">
+        <input type="hidden" name="_method" value="PUT">
+            <div class="form-group">
+                <label for="title">Email</label>
+                <div class="div-edit-profile">
+                    <input type="text" class="form-control" name="email" value="{{user.email}}" required>
+                    <button class="btn btn-submit btn-dark submit-buttons">
+                        Change email
+                    </button>
+                </div>
+            </div>
+        </form>
+</div>

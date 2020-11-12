@@ -13,14 +13,14 @@ const requireAuth = (req, res, next) =>
         {
             if(err)
             {
-
                 res.redirect("/users/login")
             } else {
                 next()
             }
         })
     } else {
-        res.redirect("/users/login")
+        const loc = req.originalUrl
+        res.redirect(`/users/verify?loc=${loc}`)
     }
 }
 
@@ -38,9 +38,15 @@ const checkUser = (req, res, next) =>
                 next()
             } else {
                 let user = await Users.findById(decodedToken.id).lean()
-                res.locals.user = user
-                next()
-                return 1;
+                if(user)
+                {
+                    res.locals.user = user
+                    next()
+                    return 1;
+                } else {
+                    res.cookie("jwt", '', { maxAge: 1})
+                    res.redirect('/users/login')
+                }
             }
         })
     } else {

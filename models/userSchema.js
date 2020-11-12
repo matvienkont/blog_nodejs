@@ -2,7 +2,9 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 const bcrypt = require('bcryptjs');
 
-const expiringTime = 300000;
+const randtoken = require('rand-token');
+
+const expiringTime = 86400000;
 
 const userSchema = new Schema({
     name: {
@@ -27,6 +29,14 @@ const userSchema = new Schema({
             type: Date,
             default: Date.now() + expiringTime
         }
+    },
+    confirmedEmail: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    emailConfirmationToken: {
+        type: String
     }
 })
 
@@ -38,7 +48,11 @@ userSchema.statics.login = async function ( email, password )
         const auth = await bcrypt.compare(password, user.password)
         if (auth)
         {
-            return user
+            const token = randtoken.generate(80);
+            user.refreshToken.token = token
+            user.refreshToken.expiringTime = Date.now() + expiringTime
+            await user.save()
+            return { user, token }
         }
         throw Error("incorrect password")
     } throw Error("incorrect email")

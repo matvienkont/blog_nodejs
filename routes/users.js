@@ -18,4 +18,7 @@ router.get('/register', (req, res) => res.render("users/register"))
 //Logout
 router.get('/logout', requireAuth, authController.logout_get)
 
+//Refresh token
+router.get("/verify", authController.refresh_token_get)
+
 module.exports = router

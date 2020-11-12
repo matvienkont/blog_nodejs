@@ -72,6 +72,16 @@
     right: 50px;
 }
 
+.post_amount {
+    position: fixed;
+    bottom: 100px;
+    right: 50px;
+}
+
+#post_amount {
+    color: white;
+}
+
 .avatar-pic 
 {
     width: 200px;
@@ -271,4 +281,39 @@ div > .text-color {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.div-edit-profile {
+    display: flex;
+    flex-direction: row;
+}
+
+.submit-buttons {
+    margin-left: 5px;
+}
+
+.div-stats-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#span-stats-date {
+    padding: 0 50px;
+}
+
+#span-stats-posts {
+    padding: 0 50px;
+}
+
+.links-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.page-links {
+    padding: 10px;
+    margin: 30px;
+    margin-bottom: 50px;
 }
